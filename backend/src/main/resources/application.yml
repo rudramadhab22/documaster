@@ -1,0 +1,16 @@
+server:
+  port: 8080
+  tomcat:
+    max-swallow-size: 55MB
+
+spring:
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 100MB
+  application:
+    name: documaster-backend
+
+documaster:
+  cors:
+    allowed-origins: ${DOCUMASTER_CORS_ALLOWED_ORIGINS:http://localhost:5173,http://localhost:3000,http://localhost:80,http://localhost}
