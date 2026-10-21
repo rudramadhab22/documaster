@@ -1,0 +1,14 @@
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "8080:8080"
+    environment:
+      DOCUMASTER_CORS_ALLOWED_ORIGINS: http://localhost,http://localhost:80,http://localhost:5173
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
