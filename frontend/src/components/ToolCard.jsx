@@ -1,15 +1,38 @@
 import { Link } from 'react-router-dom'
 
+const accents = {
+  'pdf-compressor': 'from-teal-700 to-teal-500',
+  'image-to-pdf': 'from-emerald-700 to-teal-500',
+  'pdf-merger': 'from-[#0b3d3a] to-teal-600',
+  'pdf-splitter': 'from-cyan-800 to-teal-500',
+  'image-compressor': 'from-slate-700 to-teal-600',
+  'pdf-to-image': 'from-teal-800 to-emerald-500',
+  'excel-to-pdf': 'from-[#1f6f4a] to-teal-500',
+  'excel-to-csv': 'from-[#1b5e4a] to-emerald-500',
+  'csv-to-excel': 'from-[#14532d] to-teal-600',
+  'excel-to-images': 'from-[#0f766e] to-cyan-600',
+  'excel-to-pdfs': 'from-[#115e59] to-teal-500',
+}
+
 export default function ToolCard({ tool }) {
+  const accent = accents[tool.id] || 'from-teal-700 to-teal-500'
+
   return (
     <Link
       to={tool.path}
-      className="block rounded-xl border border-slate-200 bg-white p-5 shadow-sm transition hover:border-teal-300 hover:shadow-md"
+      className="tool-card group flex h-full flex-col rounded-2xl border border-slate-200/90 bg-white p-5 sm:p-6"
     >
-      <div className="mb-3 flex h-11 w-11 items-center justify-center rounded-lg bg-teal-50 text-teal-800">
-        <ToolIcon id={tool.id} />
+      <div className="mb-4 flex items-start justify-between gap-3">
+        <div
+          className={`flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br ${accent} text-white shadow-sm`}
+        >
+          <ToolIcon id={tool.id} />
+        </div>
+        <span className="tool-card-arrow mt-1 text-teal-700" aria-hidden="true">
+          →
+        </span>
       </div>
-      <h3 className="mb-1 text-base font-semibold text-slate-900">{tool.title}</h3>
+      <h3 className="mb-2 text-lg font-semibold tracking-tight text-slate-900">{tool.title}</h3>
       <p className="text-sm leading-relaxed text-slate-600">{tool.description}</p>
     </Link>
   )

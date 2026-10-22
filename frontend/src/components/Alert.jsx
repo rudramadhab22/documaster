@@ -7,7 +7,7 @@ export default function Alert({ type = 'error', children }) {
         : 'border-red-200 bg-red-50 text-red-800'
 
   return (
-    <div className={`mt-4 rounded-lg border px-3 py-2 text-sm ${styles}`}>
+    <div className={`mt-4 rounded-xl border px-3.5 py-3 text-sm leading-relaxed ${styles}`}>
       {children}
     </div>
   )

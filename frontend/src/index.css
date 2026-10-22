@@ -1,27 +1,168 @@
 @import "tailwindcss";
 
 :root {
-  --color-ink: #0f172a;
-  --color-muted: #64748b;
-  --color-surface: #f8fafc;
-  --color-card: #ffffff;
-  --color-accent: #0f766e;
-  --color-accent-hover: #0d9488;
-  --color-border: #e2e8f0;
-  --color-danger: #b91c1c;
+  --ink: #102a43;
+  --muted: #486581;
+  --surface: #f4f7f6;
+  --card: #ffffff;
+  --forest: #0b3d3a;
+  --teal: #0f766e;
+  --mint: #d8f3ef;
+  --sand: #f3eee6;
+  --border: #d9e2ec;
+  --font-display: "Fraunces", Georgia, serif;
+  --font-sans: "Outfit", "Segoe UI", sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
 }
 
 body {
   margin: 0;
   min-height: 100vh;
-  font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
-  color: var(--color-ink);
-  background:
-    radial-gradient(ellipse at top left, #ecfeff 0%, transparent 45%),
-    radial-gradient(ellipse at bottom right, #e2e8f0 0%, transparent 40%),
-    var(--color-surface);
+  font-family: var(--font-sans);
+  color: var(--ink);
+  background-color: var(--surface);
+  background-image:
+    radial-gradient(ellipse 80% 50% at 10% -10%, rgba(15, 118, 110, 0.18), transparent 55%),
+    radial-gradient(ellipse 60% 40% at 100% 0%, rgba(243, 238, 230, 0.9), transparent 50%),
+    linear-gradient(180deg, #eef5f3 0%, var(--surface) 38%, #eef2f1 100%);
+  background-attachment: fixed;
+  line-height: 1.55;
 }
 
 #root {
   min-height: 100vh;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes soft-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.03);
+  }
+}
+
+.animate-rise {
+  animation: rise-in 0.55s ease-out both;
+}
+
+.animate-rise-delay {
+  animation: rise-in 0.65s ease-out 0.08s both;
+}
+
+.animate-rise-delay-2 {
+  animation: rise-in 0.7s ease-out 0.16s both;
+}
+
+.hero-panel {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(15, 118, 110, 0.12);
+  background:
+    linear-gradient(145deg, rgba(11, 61, 58, 0.96) 0%, #0f766e 58%, #148f84 100%);
+  box-shadow: 0 18px 40px rgba(16, 42, 67, 0.12);
+}
+
+.hero-panel::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 28px 28px;
+  mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.55), transparent 85%);
+  pointer-events: none;
+}
+
+.hero-panel::after {
+  content: "";
+  position: absolute;
+  width: 220px;
+  height: 220px;
+  right: -40px;
+  top: -50px;
+  border-radius: 40% 60% 55% 45%;
+  background: rgba(255, 255, 255, 0.08);
+  animation: soft-pulse 7s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.tool-card {
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.tool-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 28px rgba(16, 42, 67, 0.1);
+  border-color: rgba(15, 118, 110, 0.35);
+}
+
+.tool-card:hover .tool-card-arrow {
+  transform: translateX(3px);
+  opacity: 1;
+}
+
+.tool-card-arrow {
+  transition:
+    transform 0.2s ease,
+    opacity 0.2s ease;
+  opacity: 0.45;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-rise,
+  .animate-rise-delay,
+  .animate-rise-delay-2,
+  .hero-panel::after,
+  .tool-card,
+  .tool-card-arrow {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .tool-card:hover {
+    transform: none;
+  }
 }
