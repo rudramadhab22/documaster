@@ -11,6 +11,10 @@ public final class FileValidation {
 
     private static final Set<String> PDF_TYPES = Set.of("application/pdf");
     private static final Set<String> IMAGE_TYPES = Set.of("image/jpeg", "image/jpg", "image/png");
+    private static final Set<String> EXCEL_TYPES = Set.of(
+            "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+            "application/vnd.ms-excel");
+    private static final Set<String> CSV_TYPES = Set.of("text/csv", "application/csv", "text/plain");
 
     private FileValidation() {
     }
@@ -56,6 +60,28 @@ public final class FileValidation {
         }
         for (MultipartFile file : files) {
             requireImage(file);
+        }
+    }
+
+    public static void requireExcel(MultipartFile file) {
+        requirePresent(file, "Excel file");
+        String contentType = normalize(file.getContentType());
+        String name = file.getOriginalFilename() != null ? file.getOriginalFilename().toLowerCase(Locale.ROOT) : "";
+        boolean okType = EXCEL_TYPES.contains(contentType);
+        boolean okExt = name.endsWith(".xlsx") || name.endsWith(".xls");
+        if (!okType && !okExt) {
+            throw new ApiException("Only Excel files (.xlsx, .xls) are allowed.", HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    public static void requireCsv(MultipartFile file) {
+        requirePresent(file, "CSV file");
+        String contentType = normalize(file.getContentType());
+        String name = file.getOriginalFilename() != null ? file.getOriginalFilename().toLowerCase(Locale.ROOT) : "";
+        boolean okType = CSV_TYPES.contains(contentType);
+        boolean okExt = name.endsWith(".csv");
+        if (!okType && !okExt) {
+            throw new ApiException("Only CSV files are allowed.", HttpStatus.BAD_REQUEST);
         }
     }
 

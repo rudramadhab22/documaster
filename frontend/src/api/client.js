@@ -134,3 +134,48 @@ export async function pdfToImages(file, pages, format) {
     filename: match?.[1] || (format === 'png' ? 'page.png' : 'page.jpg'),
   }
 }
+
+function filenameFromResponse(response, fallback) {
+  const disposition = response.headers['content-disposition'] || ''
+  const match = disposition.match(/filename="?([^"]+)"?/)
+  return match?.[1] || fallback
+}
+
+export async function excelToPdf(file) {
+  const formData = new FormData()
+  formData.append('file', file)
+  const response = await postFile('/api/excel/to-pdf', formData)
+  return { blob: response.data, filename: filenameFromResponse(response, 'workbook.pdf') }
+}
+
+export async function excelToCsv(file) {
+  const formData = new FormData()
+  formData.append('file', file)
+  const response = await postFile('/api/excel/to-csv', formData)
+  return { blob: response.data, filename: filenameFromResponse(response, 'workbook.csv') }
+}
+
+export async function csvToExcel(file) {
+  const formData = new FormData()
+  formData.append('file', file)
+  const response = await postFile('/api/excel/from-csv', formData)
+  return { blob: response.data, filename: filenameFromResponse(response, 'data.xlsx') }
+}
+
+export async function excelToImages(file, format) {
+  const formData = new FormData()
+  formData.append('file', file)
+  formData.append('format', format)
+  const response = await postFile('/api/excel/to-images', formData)
+  return {
+    blob: response.data,
+    filename: filenameFromResponse(response, format === 'png' ? 'sheets.png' : 'sheets.jpg'),
+  }
+}
+
+export async function excelToPdfsPerSheet(file) {
+  const formData = new FormData()
+  formData.append('file', file)
+  const response = await postFile('/api/excel/to-pdfs-per-sheet', formData)
+  return { blob: response.data, filename: filenameFromResponse(response, 'sheets.zip') }
+}

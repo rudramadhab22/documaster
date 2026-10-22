@@ -59,6 +59,39 @@ function ToolIcon({ id }) {
           <path d="M14 2v6h6M9 15l2 2 4-4" />
         </svg>
       )
+    case 'excel-to-pdf':
+      return (
+        <svg className={common} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <path d="M4 4h16v16H4zM4 9h16M9 4v16" />
+        </svg>
+      )
+    case 'excel-to-csv':
+      return (
+        <svg className={common} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" />
+          <path d="M14 2v6h6M8 13h8M8 17h5" />
+        </svg>
+      )
+    case 'csv-to-excel':
+      return (
+        <svg className={common} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <path d="M3 5h18v14H3zM3 10h18M9 5v14" />
+        </svg>
+      )
+    case 'excel-to-images':
+      return (
+        <svg className={common} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <rect x="3" y="5" width="18" height="14" rx="2" />
+          <circle cx="9" cy="10" r="1.5" />
+          <path d="M21 16l-4-4-6 6" />
+        </svg>
+      )
+    case 'excel-to-pdfs':
+      return (
+        <svg className={common} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <path d="M8 3h7l5 5v13H8zM15 3v5h5M10 13h6M10 17h4" />
+        </svg>
+      )
     default:
       return (
         <svg className={common} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
